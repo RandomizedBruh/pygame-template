@@ -26,12 +26,24 @@ pygame.display.set_caption("Моя перва игра кхехе")
 
 clock = pygame.time.Clock()
 
+
+player = Player("./boych.png",200,100,200,300)
+
+
+# surface = pygame.image.load('./boych.png')
+# surface=pygame.transform.scale(surface,(100,100))
+# rect =surface.get_rect(center=(200,200))
+
+# surface2 = pygame.image.load('./boychdva.png')
+# rect2=surface.get_rect(center=(300,300))
 # red = 0
 
 # blue = 255
 
 # green = 
 x = 0
+y = 0
+speed =3
 
 
 isRunning = True
@@ -39,19 +51,35 @@ isRunning = True
 while isRunning:
 
     screen.fill(GREEN)
-    pygame.draw.rect(screen,RED,(x,0,200,100))
-    pygame.draw.circle(screen,BLUE,(x,200), 40)
-    x+=1
+    # pygame.draw.rect(screen,RED,(x,y,200,100))
+    # pygame.draw.circle(screen,BLUE,(x,y), 40)
+
+
+    # screen.blit(surface,rect)
+    # screen.blit(surface2,rect2)
+
+    player.draw(screen)
 
     if x >= WIDTH:
         x=-200
     
-    keys = pygame.key.ger_pressed()
 
-    if keys[pygame.K_LEFT]:
-        x -= 3
+    # rect.center=(x,y)
+    
+
+
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LSHIFT]:
+        speed=8
+    else: speed = 3
+    if keys[pygame.K_a]:
+        x -= speed
     elif keys[pygame.K_d]:
-        x += 3
+        x += speed
+    if keys[pygame.K_w]:
+        y-=speed
+    elif keys[pygame.K_s]:
+        y+=speed
     # blue -=1
     # if blue == 0:
     #     blue =255
