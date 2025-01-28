@@ -28,6 +28,7 @@ clock = pygame.time.Clock()
 
 
 player = Player("./boych.png",200,100,200,300)
+micros = Player("./microp.png",50,50,200,300)
 
 
 # surface = pygame.image.load('./boych.png')
@@ -59,27 +60,29 @@ while isRunning:
     # screen.blit(surface2,rect2)
 
     player.draw(screen)
+    micros.draw(screen)
 
-    if x >= WIDTH:
-        x=-200
+
+    if player.x >= WIDTH:
+        player.x =-200
     
-
+    player.move()
     # rect.center=(x,y)
     
 
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_LSHIFT]:
-        speed=8
-    else: speed = 3
-    if keys[pygame.K_a]:
-        x -= speed
-    elif keys[pygame.K_d]:
-        x += speed
-    if keys[pygame.K_w]:
-        y-=speed
-    elif keys[pygame.K_s]:
-        y+=speed
+    # keys = pygame.key.get_pressed()
+    # if keys[pygame.K_LSHIFT]:
+    #     speed=8
+    # else: speed = 3
+    # if keys[pygame.K_a]:
+    #     player.x -= speed
+    # elif keys[pygame.K_d]:
+    #     player.x += speed
+    # if keys[pygame.K_w]:
+    #     player.y -=speed
+    # elif keys[pygame.K_s]:
+    #     player.y +=speed
     # blue -=1
     # if blue == 0:
     #     blue =255
