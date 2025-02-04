@@ -31,14 +31,14 @@ class Player:
         width=screen.get_width()
         height=screen.get_height()
 
-        if(self.x<0):
-            self.x=width
-        elif(self.x > width):
-            self.x=0
-        if (self.y < 0):
-            self.y=height
-        elif(self.y>height):
-            self.y=0
+        if(self.x< -self.width):
+            self.x=width + 50
+        elif(self.x >= width + 50):
+            self.x = -50
+        if (self.y < -50):
+            self.y=height +50
+        elif(self.y>height+50):
+            self.y=-50
 
 
         self.rect.center=(self.x,self.y)

@@ -28,7 +28,14 @@ clock = pygame.time.Clock()
 
 
 player = Player("./boych.png",200,100,200,300)
-micros = Player("./microp.png",50,50,200,300)
+micros = Enemy("./microp.png",50,50,200,300)
+enemy2 = Enemy("./microp.png",x=100, y =50)
+
+
+listEnemy = []
+for i in range(0,10):
+    enemy = Enemy("./microp.png",x=rd(0,WIDTH), y=rd(0,HEIGHT),speed =rd(1,7))
+    listEnemy.append(enemy)
 
 
 # surface = pygame.image.load('./boych.png')
@@ -54,17 +61,19 @@ while isRunning:
     screen.fill(GREEN)
     # pygame.draw.rect(screen,RED,(x,y,200,100))
     # pygame.draw.circle(screen,BLUE,(x,y), 40)
-
+    for enemy in listEnemy:
+        enemy.draw(screen)
+        enemy.follow(player)
 
     # screen.blit(surface,rect)
     # screen.blit(surface2,rect2)
 
     player.draw(screen)
     micros.draw(screen)
+    enemy2.draw(screen)
 
-
-    if player.x >= WIDTH:
-        player.x =-200
+    micros.follow(player)
+    # enemy2.follow(player,2)
     
     player.move()
     # rect.center=(x,y)
