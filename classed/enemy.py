@@ -1,7 +1,7 @@
 import pygame
 
 
-class Enemy:
+class Enemy(pygame.sprite.Sprite):
 
 
     image=""
@@ -15,6 +15,7 @@ class Enemy:
     
 
     def __init__(self,image,width=100 ,height=100,x=0,y=0,speed=8):
+        super().__init__()
         print("создаём приколы")
         self.x=x
         self.y=y

@@ -2,6 +2,7 @@
 from classed.enemy import Enemy
 
 from classed.player import Player
+from classed.bullet import Bullet
 
 import pygame
 from random import randint as rd
@@ -31,11 +32,22 @@ player = Player("./boych.png",200,100,200,300)
 micros = Enemy("./microp.png",50,50,200,300)
 enemy2 = Enemy("./microp.png",x=100, y =50)
 
-
 listEnemy = []
+enemyGroup = pygame.sprite.Group(listEnemy)
 for i in range(0,10):
     enemy = Enemy("./microp.png",x=rd(0,WIDTH), y=rd(0,HEIGHT),speed =rd(1,7))
     listEnemy.append(enemy)
+    enemyGroup.add(enemy)
+
+bulletList =[]
+
+
+
+
+
+
+
+
 
 
 # surface = pygame.image.load('./boych.png')
@@ -99,6 +111,39 @@ while isRunning:
     # red +=1
     # if red == 255:
     #     red =0
+    keys =pygame.key.get_pressed()
+    if keys[pygame.K_SPACE]:
+        bullet =Bullet("./пуля.png", 20, 10, player.x,player.y)
+        bulletList.append(bullet)
+
+    for bullet in bulletList:
+        bullet.draw(screen)
+        bullet.move()
+        if bullet.x > WIDTH or bullet.x <0 or bullet.y > HEIGHT or bullet.x < 0:
+            bulletList.remove(bullet)
+            #проверка столкновения пуль с противником
+        collideSprite = pygame.sprite.spritecollideany(bullet,enemyGroup)
+        if collideSprite:
+            print("SHOWDOWNBS", collideSprite)
+            bulletList.remove(bullet)
+            enemyGroup.remove(collideSprite)
+            listEnemy.remove(collideSprite)
+
+
+#          .......
+#       
+# 
+# 
+# 
+#  ______
+# |SanS  |
+#  ___________________________ 
+# | er er er er er            |
+# |                           |
+# |chevo????                  |
+# |                           |
+# | yes                 yes   |
+# |___________________________|
 
 
 
