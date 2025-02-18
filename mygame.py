@@ -28,26 +28,29 @@ pygame.display.set_caption("Моя перва игра кхехе")
 clock = pygame.time.Clock()
 
 
-player = Player("./boych.png",200,100,200,300)
+font =pygame.font.Font(None, 36)
+
+
+player = Player("./boych.png",200,100,200,HEIGHT-100)
 micros = Enemy("./microp.png",50,50,200,300)
 enemy2 = Enemy("./microp.png",x=100, y =50)
 
+
+
+
 listEnemy = []
 enemyGroup = pygame.sprite.Group(listEnemy)
-for i in range(0,10):
-    enemy = Enemy("./microp.png",x=rd(0,WIDTH), y=rd(0,HEIGHT),speed =rd(1,7))
-    listEnemy.append(enemy)
+def spawnEnemyes():
+    x = rd(0,WIDTH)
+    y=rd(0,200)
+    enemy = Enemy("./microp.png",x=x, y=y,speed =rd(1,3))
     enemyGroup.add(enemy)
+    listEnemy.append(enemy)
+    
+for i in range(0,10):
+    spawnEnemyes()
 
 bulletList =[]
-
-
-
-
-
-
-
-
 
 
 # surface = pygame.image.load('./boych.png')
@@ -65,17 +68,26 @@ x = 0
 y = 0
 speed =3
 
+kills =0
 
 isRunning = True
 
 while isRunning:
 
-    screen.fill(GREEN)
+    screen.fill(BLUE)
+
+    text=font.render(f"убийств {kills}", 1,BLACK)
+    screen.blit(text,(400,100))
+
+
+
+
     # pygame.draw.rect(screen,RED,(x,y,200,100))
     # pygame.draw.circle(screen,BLUE,(x,y), 40)
     for enemy in listEnemy:
         enemy.draw(screen)
         enemy.follow(player)
+
 
     # screen.blit(surface,rect)
     # screen.blit(surface2,rect2)
@@ -116,6 +128,19 @@ while isRunning:
         bullet =Bullet("./пуля.png", 20, 10, player.x,player.y)
         bulletList.append(bullet)
 
+    collideWithPlayer=pygame.sprite.spritecollideany(player,enemyGroup)
+    if collideWithPlayer:
+        print("KABOOM")
+        player.hp -=3
+        if player.hp<=0:
+            print("дэд")
+            isRunning =False
+
+
+
+
+
+
     for bullet in bulletList:
         bullet.draw(screen)
         bullet.move()
@@ -146,6 +171,9 @@ while isRunning:
 # |___________________________|
 
 
+    spawnChance=rd(0,100)
+    if spawnChance <= 10:
+        spawnEnemyes()
 
 
     pygame.display.update()

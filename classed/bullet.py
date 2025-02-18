@@ -32,4 +32,4 @@ class Bullet(pygame.sprite.Sprite):
         screen.blit(self.surface,self.rect)
 
     def move(self):
-        self.x +=self.speed
+        self.y -=self.speed

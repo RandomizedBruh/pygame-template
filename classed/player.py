@@ -3,7 +3,7 @@ import pygame
 
 class Player:
 
-
+    hp=100
     image=""
     surface=None
     rect=None
@@ -43,6 +43,7 @@ class Player:
 
         self.rect.center=(self.x,self.y)
         screen.blit(self.surface,self.rect)
+        self.showHp(screen)
 
     def move(self):
 
@@ -58,4 +59,8 @@ class Player:
         if keys[pygame.K_w]:
             self.y -=self.speed
         elif keys[pygame.K_s]:
-            self.y +=self.speed    
+            self.y +=self.speed  
+
+    def showHp(self,screen:pygame.Surface):
+         pygame.draw.rect(screen,(255,0,0), (0,0,self.width,10))  
+         pygame.draw.rect(screen,(0,255,0), (0,0,self.width * self.hp / 100,10))  
